@@ -6,10 +6,28 @@
   "bundle": "typings/tsd.d.ts",
   "installed": {
     "node/node.d.ts": {
-      "commit": "75c44e0632ebd8f646056ff224cac86845d475ff"
+      "commit": "0dd29bf8253536ae24e61c109524e924ea510046"
     },
     "jasmine/jasmine.d.ts": {
       "commit": "75c44e0632ebd8f646056ff224cac86845d475ff"
+    },
+    "request/request.d.ts": {
+      "commit": "0dd29bf8253536ae24e61c109524e924ea510046"
+    },
+    "form-data/form-data.d.ts": {
+      "commit": "0dd29bf8253536ae24e61c109524e924ea510046"
+    },
+    "express/express.d.ts": {
+      "commit": "0dd29bf8253536ae24e61c109524e924ea510046"
+    },
+    "serve-static/serve-static.d.ts": {
+      "commit": "0dd29bf8253536ae24e61c109524e924ea510046"
+    },
+    "mime/mime.d.ts": {
+      "commit": "0dd29bf8253536ae24e61c109524e924ea510046"
+    },
+    "socket.io/socket.io.d.ts": {
+      "commit": "0dd29bf8253536ae24e61c109524e924ea510046"
     }
   }
 }
