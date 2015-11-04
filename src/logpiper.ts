@@ -6,7 +6,9 @@ export function logpiper(port: number, callback: (server: http.Server) => void) 
 	server.run(port, (httpServer, io) => {
 		client.stream((data) => {
 			io.sockets.emit('log', data);
-		}, () => {});
+		}, () => {
+			io.sockets.emit('log', 'Connection Ended');
+		});
 		
 		callback(httpServer);
 	});

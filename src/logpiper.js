@@ -4,7 +4,9 @@ function logpiper(port, callback) {
     server.run(port, function (httpServer, io) {
         client.stream(function (data) {
             io.sockets.emit('log', data);
-        }, function () { });
+        }, function () {
+            io.sockets.emit('log', 'Connection Ended');
+        });
         callback(httpServer);
     });
 }
