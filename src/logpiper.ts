@@ -14,7 +14,4 @@ export function logpiper(port: number, callback: (server: http.Server) => void) 
 	});
 }
 
-logpiper(8080, (server) => {
-	// Start server
-	console.log(server);
-});
+logpiper(8080, (server) => {});

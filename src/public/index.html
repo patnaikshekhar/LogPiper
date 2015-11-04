@@ -2,10 +2,24 @@
 <html ng-app="logApp">
 	<head>
 		<title>Log Piper</title>
+		<link rel="stylesheet" href="/lib/bootstrap-css/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="/css/main.css" />
 	</head>
 	<body>
+		<nav class="navbar navbar-default navbar-inverse">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="#">Log Piper</a>
+				</div>
+			</div>
+		</nav>
+		<div class="container" ng-controller="logController">
+			<div ng-repeat="logEntry in logs" class="col-md-12 log-row">
+				{{ logEntry.row }}
+			</div>
+		</div>
 		
-		
+		<script src="/lib/socket.io-client/socket.io.js"></script>
 		<script src="/lib/angular/angular.min.js"></script>
 		<script src="/js/main.js"></script>
 	</body>
