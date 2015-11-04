@@ -6,7 +6,7 @@
   "bundle": "typings/tsd.d.ts",
   "installed": {
     "node/node.d.ts": {
-      "commit": "0dd29bf8253536ae24e61c109524e924ea510046"
+      "commit": "001ca36ba58cef903c4c063555afb07bbc36bb58"
     },
     "jasmine/jasmine.d.ts": {
       "commit": "75c44e0632ebd8f646056ff224cac86845d475ff"
@@ -18,19 +18,37 @@
       "commit": "0dd29bf8253536ae24e61c109524e924ea510046"
     },
     "express/express.d.ts": {
-      "commit": "0dd29bf8253536ae24e61c109524e924ea510046"
+      "commit": "001ca36ba58cef903c4c063555afb07bbc36bb58"
     },
     "serve-static/serve-static.d.ts": {
-      "commit": "0dd29bf8253536ae24e61c109524e924ea510046"
+      "commit": "001ca36ba58cef903c4c063555afb07bbc36bb58"
     },
     "mime/mime.d.ts": {
-      "commit": "0dd29bf8253536ae24e61c109524e924ea510046"
+      "commit": "001ca36ba58cef903c4c063555afb07bbc36bb58"
     },
     "socket.io/socket.io.d.ts": {
       "commit": "0dd29bf8253536ae24e61c109524e924ea510046"
     },
     "socket.io-client/socket.io-client.d.ts": {
       "commit": "0dd29bf8253536ae24e61c109524e924ea510046"
+    },
+    "jquery/jquery.d.ts": {
+      "commit": "001ca36ba58cef903c4c063555afb07bbc36bb58"
+    },
+    "angularjs/angular.d.ts": {
+      "commit": "001ca36ba58cef903c4c063555afb07bbc36bb58"
+    },
+    "karma/karma.d.ts": {
+      "commit": "001ca36ba58cef903c4c063555afb07bbc36bb58"
+    },
+    "bluebird/bluebird.d.ts": {
+      "commit": "001ca36ba58cef903c4c063555afb07bbc36bb58"
+    },
+    "log4js/log4js.d.ts": {
+      "commit": "001ca36ba58cef903c4c063555afb07bbc36bb58"
+    },
+    "angularjs/angular-mocks.d.ts": {
+      "commit": "001ca36ba58cef903c4c063555afb07bbc36bb58"
     }
   }
 }

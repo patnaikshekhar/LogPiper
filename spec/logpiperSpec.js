@@ -49,7 +49,7 @@ describe('logpiper-server', function () {
     it('should start when run', function (done) {
         logpiperServer.run(PORT, function (server) {
             request
-                .get(URL)
+                .get(URL + 'index.html')
                 .on('response', function (response) {
                 expect(response.statusCode).toBe(200);
                 server.close();
