@@ -1,20 +1,13 @@
 /// <references path="../typings/tsd.d.ts" />
-export function piper(callback: (data: string) => void) {
+
+export function stream(dataCallback: (data: string) => void, endCallback: () => void) {
 	var data = '';
 	
 	process.stdin.setEncoding('utf8');
 	
-	process.stdin.on('data', function(chunk) {
-		data += chunk.toString().trim();
-	});
+	process.stdin.on('data', (chunk) => dataCallback(chunk.toString()));
 	
-	process.stdin.on('end', function() {
-		callback(data);
-	});
+	process.stdin.on('end', () => endCallback());
 	
 	process.stdin.resume();
 };
-
-// piper(function(data) {
-// 	console.log('Here the data is ', data, 'done');
-// });

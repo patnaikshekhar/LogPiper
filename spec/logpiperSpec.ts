@@ -1,62 +1,123 @@
 /// <references path="../typings/tsd.d.ts" />
 
-//var logpiper = require('../src/logpiper');
-//var stdin = require('mock-stdin').stdin();
-
 import logpiperClient = require('../src/logpiper-client');
 import logpiperServer = require('../src/logpiper-server');
+import logpiper = require('../src/logpiper');
 import request = require('request');
+import io = require('socket.io-client');
+
+var stdin;
+var PORT = process.env.PORT || 8000;
+var URL = 'http://localhost:' + PORT + '/';
+var SOCKET_OPTIONS ={
+  transports: ['websocket'],
+  'force new connection': true
+};
 
 jasmine.getEnv().addReporter(new jasmine.ConsoleReporter(console.log));
 
-describe("logpiper-client", function() {
+describe('logpiper-client', () => {
 	
-	var stdin;
-		
-	beforeEach(function() {
+	beforeEach(() => {
 		stdin = require('mock-stdin').stdin();
 	});
 	
-	it("should be able to read piped input", function(done) {
-		process.nextTick(function mockResponse() {      		
+	it('should call the callback when input is passed via pipe', (done) => {
+		process.nextTick(() => {      		
 			stdin.send('Some text');
 			stdin.end();
     	});
 		
-		logpiperClient.piper(function(data) {
+		logpiperClient.stream((data) => {
 			expect(data).toBe('Some text');
+		}, () => {
+			expect(null).toBeNull;
 			done();
 		});
 	});
+	
+	it('should call the callback mutiple times when the callback is called', (done) => {
+		process.nextTick(() => {      		
+			stdin.send('Some text');
+			stdin.send('Some text2');
+			stdin.end();
+    	});
+		
+		var dummy = {
+			test: (data: string) => {}
+		}	
+		
+		spyOn(dummy, 'test');
+		
+		logpiperClient.stream((data) => dummy.test(data),() => {
+			expect(dummy.test).toHaveBeenCalledWith('Some text');
+			expect(dummy.test).toHaveBeenCalledWith('Some text2');
+			done();
+		});
+	});
+	
 });
 
-describe("logpiper-server", function() {
+describe('logpiper-server', function() {
 	
-	var port = process.env.PORT || 8000;
-	var url = 'http://localhost:' + port + '/';
-	
-	it('should start when run', function(done) {
+	it('should start when run', (done) => {
 		
-		logpiperServer.run(port, function(server) {
+		logpiperServer.run(PORT, (server) => {
 			request
-				.get(url)
-				.on('response', function(response) {
+				.get(URL)
+				.on('response', (response) => {
 					expect(response.statusCode).toBe(200);
 					server.close();
 					done();
 				})
-				.on('error', function(err) {
+				.on('error', (err) => {
 					expect(err).toBe(null);
 					done();
 				});
 		});
 	});
 	
-	it('should return a socket when running', function(done) {
-		logpiperServer.run(port, function(server, sockets) {
-			expect(sockets).toBeDefined();
+	it('should return a socket when running', (done) => {
+		logpiperServer.run(PORT, (server, io) => {
+			expect(io).toBeDefined();
 			done();
 			server.close();
+		});
+	});
+});
+
+describe('logpiper', () => {
+	beforeEach(() => {
+		stdin = require('mock-stdin').stdin();
+	});
+	
+	it('should stream data to the server when the client is started', (done) => {
+		logpiper.logpiper(PORT, (server) => {
+			// Create client and connect
+			var client = io.connect(URL, SOCKET_OPTIONS);
+			
+			client.on('connect', () => {				
+				// When connected send data
+				process.nextTick(() => {      
+					stdin.send('Some text');
+					stdin.send('Some text2');
+					stdin.end();
+					setTimeout(() => {
+						server.close();
+						expect(dummy.test).toHaveBeenCalledWith('Some text');
+						expect(dummy.test).toHaveBeenCalledWith('Some text2');
+						done();	
+					}, 1000);
+    			});
+				
+				var dummy = {
+					test: (data: string) => {}
+				};
+				
+				spyOn(dummy, 'test');
+				
+				client.on('log', dummy.test);
+			});
 		});
 	});
 });
