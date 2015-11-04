@@ -14,8 +14,13 @@ export function logpiper(port: number, callback: (server: http.Server) => void) 
 				});
 			});
 			
-			streamBuffer.push(data);
-			io.sockets.emit('log', data);
+			let dataElements = data.split('\n');
+			
+			dataElements.forEach((d) => {
+				streamBuffer.push(d);
+				io.sockets.emit('log', d);	
+			});
+			
 		}, () => {
 			streamBuffer.push('Connection Ended');
 			io.sockets.emit('log', 'Connection Ended');

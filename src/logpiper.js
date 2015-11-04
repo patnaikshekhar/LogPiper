@@ -9,8 +9,11 @@ function logpiper(port, callback) {
                     socket.emit('log', data);
                 });
             });
-            streamBuffer.push(data);
-            io.sockets.emit('log', data);
+            var dataElements = data.split('\n');
+            dataElements.forEach(function (d) {
+                streamBuffer.push(d);
+                io.sockets.emit('log', d);
+            });
         }, function () {
             streamBuffer.push('Connection Ended');
             io.sockets.emit('log', 'Connection Ended');
