@@ -12,5 +12,7 @@ function logpiper(port, callback) {
 }
 exports.logpiper = logpiper;
 logpiper(8080, function (server) {
+    // Start server
+    console.log(server);
 });
 //# sourceMappingURL=logpiper.js.map

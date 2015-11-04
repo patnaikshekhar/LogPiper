@@ -10,3 +10,7 @@
 /// <reference path="socket.io-client/socket.io-client.d.ts" />
 /// <reference path="angularjs/angular.d.ts" />
 /// <reference path="jquery/jquery.d.ts" />
+/// <reference path="bluebird/bluebird.d.ts" />
+/// <reference path="karma/karma.d.ts" />
+/// <reference path="log4js/log4js.d.ts" />
+/// <reference path="angularjs/angular-mocks.d.ts" />

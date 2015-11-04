@@ -11,6 +11,7 @@
     "tests"
   ],
   "dependencies": {
-    "angular": "~1.4.7"
+    "angular": "~1.4.7",
+    "angular-mocks": "~1.4.7"
   }
 }
