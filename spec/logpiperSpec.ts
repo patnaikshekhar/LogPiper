@@ -146,4 +146,27 @@ describe('logpiper', () => {
 			client.on('log', dummy.test);
 		});
 	});
+	
+	it('should split multiline data elements', (done) => {
+		logpiper.logpiper(PORT, (server) => {
+			
+			stdin.send('Some text\nSome text2');
+			stdin.end();
+			setTimeout(() => {
+				server.close();
+				expect(dummy.test).toHaveBeenCalledWith('Some text');
+				expect(dummy.test).toHaveBeenCalledWith('Some text2');
+				done();	
+			}, 1000);
+			
+			var dummy = {
+				test: (data: string) => {}
+			};
+			
+			spyOn(dummy, 'test');
+			
+			var client = io.connect(URL, SOCKET_OPTIONS);
+			client.on('log', dummy.test);
+		});
+	});
 });

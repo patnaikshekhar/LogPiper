@@ -117,5 +117,23 @@ describe('logpiper', function () {
             client.on('log', dummy.test);
         });
     });
+    it('should split multiline data elements', function (done) {
+        logpiper.logpiper(PORT, function (server) {
+            stdin.send('Some text\nSome text2');
+            stdin.end();
+            setTimeout(function () {
+                server.close();
+                expect(dummy.test).toHaveBeenCalledWith('Some text');
+                expect(dummy.test).toHaveBeenCalledWith('Some text2');
+                done();
+            }, 1000);
+            var dummy = {
+                test: function (data) { }
+            };
+            spyOn(dummy, 'test');
+            var client = io.connect(URL, SOCKET_OPTIONS);
+            client.on('log', dummy.test);
+        });
+    });
 });
 //# sourceMappingURL=logpiperSpec.js.map
