@@ -3,9 +3,7 @@ var io = require('socket.io');
 var app = express();
 var ioApp;
 function run(port, callback) {
-    app.get('/', function (request, response) {
-        response.end('Test');
-    });
+    app.use(express.static('./src/public'));
     var server = app.listen(port, function () {
         console.log('Listening on', port);
         ioApp = io(server);

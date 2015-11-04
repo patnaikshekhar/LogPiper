@@ -64,7 +64,7 @@ describe('logpiper-server', function() {
 		
 		logpiperServer.run(PORT, (server) => {
 			request
-				.get(URL)
+				.get(URL + 'index.html')
 				.on('response', (response) => {
 					expect(response.statusCode).toBe(200);
 					server.close();
