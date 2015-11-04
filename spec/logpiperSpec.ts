@@ -87,18 +87,20 @@ describe('logpiper-server', function() {
 });
 
 describe('logpiper', () => {
+
 	beforeEach(() => {
 		stdin = require('mock-stdin').stdin();
 	});
 	
 	it('should stream data to the server when the client is started', (done) => {
 		logpiper.logpiper(PORT, (server) => {
+				
 			// Create client and connect
 			var client = io.connect(URL, SOCKET_OPTIONS);
 			
-			client.on('connect', () => {				
+			client.on('connect', () => {
 				// When connected send data
-				process.nextTick(() => {      
+				process.nextTick(() => {
 					stdin.send('Some text');
 					stdin.send('Some text2');
 					stdin.end();
@@ -118,6 +120,30 @@ describe('logpiper', () => {
 				
 				client.on('log', dummy.test);
 			});
+		});
+	});
+	
+	it('should buffer data and send it to the client when online', (done) => {
+		logpiper.logpiper(PORT, (server) => {
+			
+			stdin.send('Some text');
+			stdin.send('Some text2');
+			stdin.end();
+			setTimeout(() => {
+				server.close();
+				expect(dummy.test).toHaveBeenCalledWith('Some text');
+				expect(dummy.test).toHaveBeenCalledWith('Some text2');
+				done();	
+			}, 1000);
+			
+			var dummy = {
+				test: (data: string) => {}
+			};
+			
+			spyOn(dummy, 'test');
+			
+			var client = io.connect(URL, SOCKET_OPTIONS);
+			client.on('log', dummy.test);
 		});
 	});
 });
