@@ -4,3 +4,7 @@ div.log-row {
 	font-size: 14px;
 	margin-bottom: 6px;
 }
+
+.navbar {
+	border-radius: 0px;
+}
