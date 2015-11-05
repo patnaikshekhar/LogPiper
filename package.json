@@ -1,6 +1,6 @@
 {
   "name": "logpiper",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "This command line utility is used to pipe a command output to a http server.",
   "main": "bin/logpiper.js",
   "dependencies": {

@@ -3,7 +3,8 @@ var io = require('socket.io');
 var app = express();
 var ioApp;
 function run(port, callback) {
-    app.use(express.static('./src/public'));
+    console.log(__dirname + '/public');
+    app.use(express.static(__dirname + '/public'));
     var server = app.listen(port, function () {
         console.log('Listening on', port);
         ioApp = io(server);

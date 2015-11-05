@@ -6,8 +6,8 @@ var app : express.Express = express();
 var ioApp : SocketIO.Server;
 
 export function run(port : number, callback : (server: http.Server, io: SocketIO.Server) => void) : void {	
-	
-	app.use(express.static('./src/public'))
+	console.log(__dirname + '/public');
+	app.use(express.static(__dirname + '/public'));
 	
 	let server = app.listen(port, () => {
 		console.log('Listening on', port);
