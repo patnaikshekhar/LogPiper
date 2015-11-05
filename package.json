@@ -1,12 +1,18 @@
 {
-  "name": "log_piper",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "logpiper",
+  "version": "0.0.1",
+  "description": "This command line utility is used to pipe a command output to a http server.",
+  "main": "bin/logpiper.js",
   "dependencies": {
     "express": "^4.13.3",
     "socket.io": "^1.3.7"
   },
+  "homepage": "https://github.com/patnaikshekhar/LogPiper",
+  "keywords": [
+    "logs",
+    "angular",
+    "node"
+  ],
   "devDependencies": {
     "jasmine": "^2.3.2",
     "jasmine-core": "^2.3.4",
@@ -20,9 +26,16 @@
     "socket.io-client": "^1.3.7"
   },
   "scripts": {
-    "start": "node logpiper.js",
+    "start": "node bin/logpiper.js",
     "test": "jasmine-node spec --autotest --verbose --watch src"
   },
-  "author": "",
-  "license": "ISC"
+  "author": "Shekhar Patnaik",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/patnaikshekhar/LogPiper.git"
+  },
+  "bin": {
+    "logpiper": "bin/logpiper"
+  }
 }
