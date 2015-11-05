@@ -100,6 +100,9 @@ describe('logpiper', function () {
     });
     it('should buffer data and send it to the client when online', function (done) {
         logpiper.logpiper(PORT, function (server) {
+            var dummy = {
+                test: function (data) { }
+            };
             stdin.send('Some text');
             stdin.send('Some text2');
             stdin.end();
@@ -109,9 +112,6 @@ describe('logpiper', function () {
                 expect(dummy.test).toHaveBeenCalledWith('Some text2');
                 done();
             }, 1000);
-            var dummy = {
-                test: function (data) { }
-            };
             spyOn(dummy, 'test');
             var client = io.connect(URL, SOCKET_OPTIONS);
             client.on('log', dummy.test);

@@ -29,5 +29,3 @@ export function logpiper(port: number, callback: (server: http.Server) => void) 
 		callback(httpServer);
 	});
 }
-
-logpiper(8080, (server) => {});

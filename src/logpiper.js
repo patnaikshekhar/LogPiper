@@ -22,5 +22,4 @@ function logpiper(port, callback) {
     });
 }
 exports.logpiper = logpiper;
-logpiper(8080, function (server) { });
 //# sourceMappingURL=logpiper.js.map
