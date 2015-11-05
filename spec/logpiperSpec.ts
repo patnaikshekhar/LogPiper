@@ -126,6 +126,10 @@ describe('logpiper', () => {
 	it('should buffer data and send it to the client when online', (done) => {
 		logpiper.logpiper(PORT, (server) => {
 			
+			let dummy = {
+				test: (data: string) => {}
+			};
+			
 			stdin.send('Some text');
 			stdin.send('Some text2');
 			stdin.end();
@@ -136,19 +140,19 @@ describe('logpiper', () => {
 				done();	
 			}, 1000);
 			
-			var dummy = {
-				test: (data: string) => {}
-			};
-			
 			spyOn(dummy, 'test');
 			
-			var client = io.connect(URL, SOCKET_OPTIONS);
+			let client = io.connect(URL, SOCKET_OPTIONS);
 			client.on('log', dummy.test);
 		});
 	});
 	
 	it('should split multiline data elements', (done) => {
 		logpiper.logpiper(PORT, (server) => {
+			
+			let dummy = {
+				test: (data: string) => {}
+			};
 			
 			stdin.send('Some text\nSome text2');
 			stdin.end();
@@ -159,13 +163,9 @@ describe('logpiper', () => {
 				done();	
 			}, 1000);
 			
-			var dummy = {
-				test: (data: string) => {}
-			};
-			
 			spyOn(dummy, 'test');
 			
-			var client = io.connect(URL, SOCKET_OPTIONS);
+			let client = io.connect(URL, SOCKET_OPTIONS);
 			client.on('log', dummy.test);
 		});
 	});

@@ -16,7 +16,7 @@ export function logpiper(port: number, callback: (server: http.Server) => void) 
 			
 			let dataElements = data.split('\n');
 			
-			dataElements.forEach((d) => {
+			dataElements.forEach((d : string) => {
 				streamBuffer.push(d);
 				io.sockets.emit('log', d);	
 			});
