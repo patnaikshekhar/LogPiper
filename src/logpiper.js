@@ -10,6 +10,12 @@ function logpiper(port, callback) {
                 });
             });
             var dataElements = data.split('\n');
+            // Remove last element if it is null
+            if (dataElements.length > 0) {
+                if (dataElements[dataElements.length - 1] == '') {
+                    dataElements.pop();
+                }
+            }
             dataElements.forEach(function (d) {
                 streamBuffer.push(d);
                 io.sockets.emit('log', d);

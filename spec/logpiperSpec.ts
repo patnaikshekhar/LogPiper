@@ -169,4 +169,28 @@ describe('logpiper', () => {
 			client.on('log', dummy.test);
 		});
 	});
+	
+	it('should not send the last element in a mutiline split if it is null', (done) => {
+		logpiper.logpiper(PORT, (server) => {
+			
+			let dummy = {
+				test: (data: string) => {}
+			};
+			
+			stdin.send('Some text\nSome text2\n');
+			stdin.end();
+			setTimeout(() => {
+				server.close();
+				expect(dummy.test).toHaveBeenCalledWith('Some text');
+				expect(dummy.test).toHaveBeenCalledWith('Some text2');
+				expect(dummy.test).not.toHaveBeenCalledWith('');
+				done();	
+			}, 1000);
+			
+			spyOn(dummy, 'test');
+			
+			let client = io.connect(URL, SOCKET_OPTIONS);
+			client.on('log', dummy.test);
+		});
+	});
 });

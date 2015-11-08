@@ -16,6 +16,13 @@ export function logpiper(port: number, callback: (server: http.Server) => void) 
 			
 			let dataElements = data.split('\n');
 			
+			// Remove last element if it is null
+			if (dataElements.length > 0) {
+				if (dataElements[dataElements.length - 1] == '') {
+					dataElements.pop();
+				}
+			}
+			
 			dataElements.forEach((d : string) => {
 				streamBuffer.push(d);
 				io.sockets.emit('log', d);	

@@ -135,5 +135,24 @@ describe('logpiper', function () {
             client.on('log', dummy.test);
         });
     });
+    it('should not send the last element in a mutiline split if it is null', function (done) {
+        logpiper.logpiper(PORT, function (server) {
+            var dummy = {
+                test: function (data) { }
+            };
+            stdin.send('Some text\nSome text2\n');
+            stdin.end();
+            setTimeout(function () {
+                server.close();
+                expect(dummy.test).toHaveBeenCalledWith('Some text');
+                expect(dummy.test).toHaveBeenCalledWith('Some text2');
+                expect(dummy.test).not.toHaveBeenCalledWith('');
+                done();
+            }, 1000);
+            spyOn(dummy, 'test');
+            var client = io.connect(URL, SOCKET_OPTIONS);
+            client.on('log', dummy.test);
+        });
+    });
 });
 //# sourceMappingURL=logpiperSpec.js.map
