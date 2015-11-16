@@ -11,10 +11,15 @@
 				<div class="navbar-header">
 					<a class="navbar-brand" href="#">Log Piper</a>
 				</div>
+				<form class="navbar-form navbar-left" role="search">
+					<div class="form-group">
+						<input type="text" class="form-control" placeholder="Search" ng-model="searchText">
+					</div>
+				</form>
 			</div>
 		</nav>
 		<div ng-controller="logController">
-			<div ng-repeat="logEntry in logs" class="col-md-12 log-row">
+			<div ng-repeat="logEntry in logs | filter:searchText" class="col-md-12 log-row">
 				{{ logEntry.row }}
 			</div>
 		</div>
